@@ -23,4 +23,6 @@ GROUP BY appello_esame;
 
 SELECT `department_id` as numero_dipartimento, COUNT(*) as numero_corsi
 FROM `degrees`
+JOIN `departments`
+ON `degrees`.`department_id` = `department`.`id`
 GROUP BY numero_dipartimento;
