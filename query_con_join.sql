@@ -66,4 +66,5 @@ ON e.`id` = es.`exam_id`
 JOIN `courses` AS c
 ON c.`id` = e.`couses.id`
 GROUP BY s.`id` , c.`id`
-HAVING `voto_massimo` >= 18;
+HAVING `voto_massimo` >= 18
+ORDER BY s.`surname`, s.`name`
