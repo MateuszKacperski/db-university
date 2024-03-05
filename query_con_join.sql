@@ -3,7 +3,7 @@
 SELECT `students`.`id` AS id_studente, `degrees`.name AS corso
 FROM `students`
 JOIN `degrees`
-ON `degrees`.id = `students`.`degree_id`
+ON `degrees`.`id` = `students`.`degree_id`
 WHERE `degrees`.`name` = "Corso di Laurea in Economia";
 
 
@@ -14,7 +14,7 @@ FROM `departments`
 JOIN `degrees`
 ON `departments`.`id`=`degrees`.`department_id`
 WHERE `degrees`.`level`="magistrale"
-AND `departments`.`name`="Dipartimento di Neuroscienze";
+HAVING `departments`.`name`="Dipartimento di Neuroscienze";
 
 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
 
@@ -55,3 +55,15 @@ WHERE `departments`.`name`="Dipartimento di Matematica";
 
 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per
 superare ciascuno dei suoi esami
+
+
+SELECT s.`name`, s.`surname`, c.`name` COUNT(es.`vote`) AS 'numero_di_tentetivi', MAX(es.`vote`) AS `voto_massimo`
+FROM `student` AS s
+JOIN `exam_student` AS es
+ON s.`id` = es.`student_id`
+JOIN `exams` AS e
+ON e.`id` = es.`exam_id`
+JOIN `courses` AS c
+ON c.`id` = e.`couses.id`
+GROUP BY s.`id` , c.`id`
+HAVING `voto_massimo` >= 18;
